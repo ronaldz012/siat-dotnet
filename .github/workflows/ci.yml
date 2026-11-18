@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Restore
+        run: |
+          dotnet restore src/MiEmpresa.Siat.Sdk/MiEmpresa.Siat.Sdk.csproj
+          dotnet restore src/MiEmpresa.Siat.Sdk.Tests/MiEmpresa.Siat.Sdk.Tests.csproj
+
+      - name: Build
+        run: |
+          dotnet build src/MiEmpresa.Siat.Sdk/MiEmpresa.Siat.Sdk.csproj --no-restore
+          dotnet build src/MiEmpresa.Siat.Sdk.Tests/MiEmpresa.Siat.Sdk.Tests.csproj --no-restore
+
+      - name: Test
+        run: dotnet test src/MiEmpresa.Siat.Sdk.Tests/MiEmpresa.Siat.Sdk.Tests.csproj --no-build --verbosity normal

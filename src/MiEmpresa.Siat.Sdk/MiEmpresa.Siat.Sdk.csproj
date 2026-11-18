@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>MiEmpresa.Siat.Sdk</PackageId>
+    <Version>0.1.0-dev</Version>
+    <Authors>Ronald Zepita</Authors>
+    <Company>FacturaZ</Company>
+    <Description>SDK agnóstico (stateless) para los servicios SOAP del SIAT/SIN Bolivia: armado de XML, hashing, compresión y consumo de facturación electrónica/computarizada. No persiste estado.</Description>
+    <PackageTags>siat;sin;bolivia;facturacion;sdk;soap;xml;cufd;cuis</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- System.Security.Cryptography.Xml se re-agrega en la fase de firma digital (XMLDSig) -->
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

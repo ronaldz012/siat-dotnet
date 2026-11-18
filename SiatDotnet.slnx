@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MiEmpresa.Siat.Sdk.Tests/MiEmpresa.Siat.Sdk.Tests.csproj" />
+    <Project Path="src/MiEmpresa.Siat.Sdk/MiEmpresa.Siat.Sdk.csproj" />
+  </Folder>
+</Solution>
