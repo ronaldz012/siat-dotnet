@@ -106,3 +106,25 @@ public enum CodigoSucursal
 {
     CasaMatriz = 0
 }
+
+/// <summary>
+/// Catálogos paramétricos estándar de <c>FacturacionSincronizacion</c> (respuesta
+/// `RespuestaListaParametricas`). El nombre coincide con el de la operación SOAP; el
+/// mapeo vive en el SDK, no en los consumidores.
+/// </summary>
+public enum ParametricaSiat
+{
+    TipoPuntoVenta,
+    UnidadMedida,
+    TipoDocumentoIdentidad,
+    TipoMetodoPago,
+    TipoMoneda,
+    TiposFactura,
+    TipoDocumentoSector,
+    TipoEmision,
+    MotivoAnulacion,
+    EventosSignificativos,
+    PaisOrigen,
+    TipoHabitacion,
+    MensajesServicios,
+}

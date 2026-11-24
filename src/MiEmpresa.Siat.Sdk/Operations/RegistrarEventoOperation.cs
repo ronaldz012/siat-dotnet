@@ -38,6 +38,7 @@ public sealed class RegistrarEventoOperation
             "FacturacionOperaciones",
             soapRequest,
             token,
+            request.Ambiente,
             ct);
 
         return MapearRespuesta(response);

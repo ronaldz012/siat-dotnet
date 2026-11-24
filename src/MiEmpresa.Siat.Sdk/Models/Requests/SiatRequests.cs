@@ -158,6 +158,17 @@ public sealed record SincronizacionRequest
     public int CodigoPuntoVenta { get; init; } = 0;
 }
 
+/// <summary>Solicitud de una paramétrica de sincronización (catálogo).</summary>
+public sealed record ParametricaRequest
+{
+    public required long Nit { get; init; }
+    public required string CodigoSistema { get; init; }
+    public required string Cuis { get; init; }
+    public required Ambiente Ambiente { get; init; }
+    public int CodigoSucursal { get; init; } = 0;
+    public int CodigoPuntoVenta { get; init; } = 0;
+}
+
 public sealed record HomologacionRequest
 {
     public required long Nit { get; init; }

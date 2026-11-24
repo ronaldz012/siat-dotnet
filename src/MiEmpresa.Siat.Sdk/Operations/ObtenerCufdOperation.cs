@@ -2,8 +2,10 @@ namespace MiEmpresa.Siat.Sdk.Operations;
 using System.Xml.Serialization;
 
 using MiEmpresa.Siat.Sdk.Clients;
+using MiEmpresa.Siat.Sdk.Models;
 using MiEmpresa.Siat.Sdk.Models.Requests;
 using MiEmpresa.Siat.Sdk.Models.Responses;
+using MiEmpresa.Siat.Sdk.Xml;
 
 public sealed class ObtenerCufdOperation
 {
@@ -34,6 +36,7 @@ public sealed class ObtenerCufdOperation
             "FacturacionCodigos",
             soapRequest,
             token,
+            request.Ambiente,
             ct);
 
         return MapearRespuesta(response);
@@ -47,7 +50,7 @@ public sealed class ObtenerCufdOperation
             Codigo = resp.Codigo ?? string.Empty,
             CodigoControl = resp.CodigoControl ?? string.Empty,
             Direccion = resp.Direccion ?? string.Empty,
-            FechaVigencia = resp.FechaVigencia,
+            FechaVigencia = SiatDate.ToUtc(resp.FechaVigencia),
             Transaccion = resp.Transaccion,
             Mensajes = (resp.MensajesList ?? Array.Empty<SiatMensajeSoap>())
                 .Select(m => new SiatMensaje { Codigo = m.Codigo, Descripcion = m.Descripcion })
@@ -56,62 +59,61 @@ public sealed class ObtenerCufdOperation
     }
 }
 
-[XmlRoot("SolicitudCufd", Namespace = "https://siat.impuestos.gob.bo/")]
+[XmlRoot("cufd", Namespace = SoapEnvelopeBuilder.SiatNamespace)]
 public sealed class CufdSoapRequest
 {
-    [XmlElement("SolicitudCufd")]
+    [XmlElement("SolicitudCufd", Namespace = "")]
     public SolicitudCufd SolicitudCufd { get; set; } = new();
 }
 
 public sealed class SolicitudCufd
 {
-    [XmlElement("codigoAmbiente")]
+    [XmlElement("codigoAmbiente", Namespace = "")]
     public int CodigoAmbiente { get; set; }
 
-    [XmlElement("codigoModalidad")]
+    [XmlElement("codigoModalidad", Namespace = "")]
     public int CodigoModalidad { get; set; }
 
-    [XmlElement("codigoPuntoVenta")]
+    [XmlElement("codigoPuntoVenta", Namespace = "")]
     public int CodigoPuntoVenta { get; set; }
 
-    [XmlElement("codigoSistema")]
+    [XmlElement("codigoSistema", Namespace = "")]
     public string CodigoSistema { get; set; } = string.Empty;
 
-    [XmlElement("codigoSucursal")]
+    [XmlElement("codigoSucursal", Namespace = "")]
     public int CodigoSucursal { get; set; }
 
-    [XmlElement("cuis")]
+    [XmlElement("cuis", Namespace = "")]
     public string Cuis { get; set; } = string.Empty;
 
-    [XmlElement("nit")]
+    [XmlElement("nit", Namespace = "")]
     public long Nit { get; set; }
 }
 
-[XmlRoot("RespuestaCufd", Namespace = "https://siat.impuestos.gob.bo/")]
+[XmlRoot("cufdResponse")]
 public sealed class CufdSoapResponse
 {
-    [XmlElement("RespuestaCufd")]
+    [XmlElement("RespuestaCufd", Namespace = "")]
     public RespuestaCufdSoap RespuestaCufd { get; set; } = new();
 }
 
 public sealed class RespuestaCufdSoap
 {
-    [XmlElement("codigo")]
+    [XmlElement("codigo", Namespace = "")]
     public string? Codigo { get; set; }
 
-    [XmlElement("codigoControl")]
+    [XmlElement("codigoControl", Namespace = "")]
     public string? CodigoControl { get; set; }
 
-    [XmlElement("direccion")]
+    [XmlElement("direccion", Namespace = "")]
     public string? Direccion { get; set; }
 
-    [XmlElement("fechaVigencia")]
+    [XmlElement("fechaVigencia", Namespace = "")]
     public DateTime FechaVigencia { get; set; }
 
-    [XmlElement("transaccion")]
+    [XmlElement("transaccion", Namespace = "")]
     public bool Transaccion { get; set; }
 
-    [XmlArray("mensajesList")]
-    [XmlArrayItem("mensaje")]
+    [XmlElement("mensajesList", Namespace = "")]
     public SiatMensajeSoap[] MensajesList { get; set; } = Array.Empty<SiatMensajeSoap>();
 }

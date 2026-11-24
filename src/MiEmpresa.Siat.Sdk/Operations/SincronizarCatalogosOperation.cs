@@ -33,6 +33,7 @@ public sealed class SincronizarCatalogosOperation
             "FacturacionSincronizacion",
             soapRequest,
             token,
+            request.Ambiente,
             ct);
 
         return MapearRespuesta(response);

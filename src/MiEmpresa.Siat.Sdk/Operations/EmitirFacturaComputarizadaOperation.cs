@@ -56,6 +56,7 @@ public sealed class EmitirFacturaComputarizadaOperation
             serviceName,
             soapRequest,
             token,
+            request.Cabecera.Ambiente,
             ct);
 
         return MapearRespuesta(response);

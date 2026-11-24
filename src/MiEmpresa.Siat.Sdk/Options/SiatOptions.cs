@@ -16,7 +16,6 @@ public sealed class SiatOptions
 
     public bool ValidateXmlAgainstXsd { get; set; } = true;
 
-    public string DefaultAmbiente { get; set; } = "Pruebas";
 
     internal string GetBaseUrl(string ambiente) =>
         ambiente.Equals("Produccion", StringComparison.OrdinalIgnoreCase)

@@ -17,8 +17,17 @@ public class MockHttpMessageHandler : HttpMessageHandler
         };
     }
 
-    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    public string? LastRequestBody { get; private set; }
+    public Uri? LastRequestUri { get; private set; }
+
+    protected override async Task<HttpResponseMessage> SendAsync(
+        HttpRequestMessage request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(_response);
+        LastRequestUri = request.RequestUri;
+
+        if (request.Content is not null)
+            LastRequestBody = await request.Content.ReadAsStringAsync(cancellationToken);
+
+        return _response;
     }
 }
