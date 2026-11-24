@@ -158,6 +158,24 @@ public sealed record ConsultaPuntosVentaResponse
     public bool Exitoso => Transaccion && Mensajes.All(m => !m.EsError);
 }
 
+/// <summary>Resultado de registrar un punto de venta: el SIN asigna el código.</summary>
+public sealed record RegistroPuntoVentaResponse
+{
+    public required bool Transaccion { get; init; }
+    public required int CodigoPuntoVenta { get; init; }
+    public required IReadOnlyList<SiatMensaje> Mensajes { get; init; }
+    public bool Exitoso => Transaccion && Mensajes.All(m => !m.EsError);
+}
+
+/// <summary>Resultado de cerrar un punto de venta.</summary>
+public sealed record CierrePuntoVentaResponse
+{
+    public required bool Transaccion { get; init; }
+    public required int CodigoPuntoVenta { get; init; }
+    public required IReadOnlyList<SiatMensaje> Mensajes { get; init; }
+    public bool Exitoso => Transaccion && Mensajes.All(m => !m.EsError);
+}
+
 public sealed record HomologacionResponse
 {
     public required bool Transaccion { get; init; }

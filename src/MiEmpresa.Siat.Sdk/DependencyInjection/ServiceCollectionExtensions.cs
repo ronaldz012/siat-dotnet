@@ -38,6 +38,8 @@ public static class ServiceCollectionExtensions
         services.AddTransient<SincronizarCatalogosEspecialesOperation>();
         services.AddTransient<ObtenerFechaHoraOperation>();
         services.AddTransient<ConsultaPuntosVentaOperation>();
+        services.AddTransient<RegistroPuntoVentaOperation>();
+        services.AddTransient<CierrePuntoVentaOperation>();
 
         services.AddTransient<ISiatSdk, SiatClient>();
 

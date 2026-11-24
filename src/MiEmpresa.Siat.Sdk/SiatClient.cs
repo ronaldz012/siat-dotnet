@@ -20,6 +20,8 @@ public interface ISiatSdk
     Task<CatalogoResponse<ActividadDocumentoSectorSiat>> SincronizarActividadesDocumentoSectorAsync(ParametricaRequest request, string token, CancellationToken ct);
     Task<FechaHoraResponse> ObtenerFechaHoraAsync(ParametricaRequest request, string token, CancellationToken ct);
     Task<ConsultaPuntosVentaResponse> ConsultarPuntosVentaAsync(PuntosVentaRequest request, string token, CancellationToken ct);
+    Task<RegistroPuntoVentaResponse> RegistrarPuntoVentaAsync(RegistroPuntoVentaRequest request, string token, CancellationToken ct);
+    Task<CierrePuntoVentaResponse> CerrarPuntoVentaAsync(CierrePuntoVentaRequest request, string token, CancellationToken ct);
 }
 
 public sealed class SiatClient : ISiatSdk
@@ -33,6 +35,8 @@ public sealed class SiatClient : ISiatSdk
     private readonly SincronizarCatalogosEspecialesOperation _sincronizarEspeciales;
     private readonly ObtenerFechaHoraOperation _obtenerFechaHora;
     private readonly ConsultaPuntosVentaOperation _consultaPuntosVenta;
+    private readonly RegistroPuntoVentaOperation _registroPuntoVenta;
+    private readonly CierrePuntoVentaOperation _cierrePuntoVenta;
 
     public SiatClient(
         ObtenerCuisOperation obtenerCuis,
@@ -43,7 +47,9 @@ public sealed class SiatClient : ISiatSdk
         SincronizarParametricaOperation sincronizarParametrica,
         SincronizarCatalogosEspecialesOperation sincronizarEspeciales,
         ObtenerFechaHoraOperation obtenerFechaHora,
-        ConsultaPuntosVentaOperation consultaPuntosVenta)
+        ConsultaPuntosVentaOperation consultaPuntosVenta,
+        RegistroPuntoVentaOperation registroPuntoVenta,
+        CierrePuntoVentaOperation cierrePuntoVenta)
     {
         _obtenerCuis = obtenerCuis;
         _obtenerCufd = obtenerCufd;
@@ -54,6 +60,8 @@ public sealed class SiatClient : ISiatSdk
         _sincronizarEspeciales = sincronizarEspeciales;
         _obtenerFechaHora = obtenerFechaHora;
         _consultaPuntosVenta = consultaPuntosVenta;
+        _registroPuntoVenta = registroPuntoVenta;
+        _cierrePuntoVenta = cierrePuntoVenta;
     }
 
     public async Task<CuisResponse> ObtenerCuisAsync(CuisRequest request, string token, CancellationToken ct)
@@ -98,4 +106,12 @@ public sealed class SiatClient : ISiatSdk
     public async Task<ConsultaPuntosVentaResponse> ConsultarPuntosVentaAsync(
         PuntosVentaRequest request, string token, CancellationToken ct)
         => await _consultaPuntosVenta.EjecutarAsync(request, token, ct);
+
+    public async Task<RegistroPuntoVentaResponse> RegistrarPuntoVentaAsync(
+        RegistroPuntoVentaRequest request, string token, CancellationToken ct)
+        => await _registroPuntoVenta.EjecutarAsync(request, token, ct);
+
+    public async Task<CierrePuntoVentaResponse> CerrarPuntoVentaAsync(
+        CierrePuntoVentaRequest request, string token, CancellationToken ct)
+        => await _cierrePuntoVenta.EjecutarAsync(request, token, ct);
 }

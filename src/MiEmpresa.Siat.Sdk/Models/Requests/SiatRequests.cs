@@ -179,6 +179,31 @@ public sealed record PuntosVentaRequest
     public int CodigoSucursal { get; init; } = 0;
 }
 
+/// <summary>Solicitud de registro de un punto de venta en una sucursal.</summary>
+public sealed record RegistroPuntoVentaRequest
+{
+    public required long Nit { get; init; }
+    public required string CodigoSistema { get; init; }
+    public required string Cuis { get; init; }
+    public required Ambiente Ambiente { get; init; }
+    public required Modalidad Modalidad { get; init; }
+    public required int CodigoSucursal { get; init; }
+    public required int CodigoTipoPuntoVenta { get; init; }
+    public required string NombrePuntoVenta { get; init; }
+    public string Descripcion { get; init; } = string.Empty;
+}
+
+/// <summary>Solicitud de cierre de un punto de venta.</summary>
+public sealed record CierrePuntoVentaRequest
+{
+    public required long Nit { get; init; }
+    public required string CodigoSistema { get; init; }
+    public required string Cuis { get; init; }
+    public required Ambiente Ambiente { get; init; }
+    public required int CodigoSucursal { get; init; }
+    public required int CodigoPuntoVenta { get; init; }
+}
+
 public sealed record HomologacionRequest
 {
     public required long Nit { get; init; }
