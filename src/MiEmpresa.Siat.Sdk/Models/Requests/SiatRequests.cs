@@ -169,6 +169,16 @@ public sealed record ParametricaRequest
     public int CodigoPuntoVenta { get; init; } = 0;
 }
 
+/// <summary>Solicitud de consulta de puntos de venta de una sucursal.</summary>
+public sealed record PuntosVentaRequest
+{
+    public required long Nit { get; init; }
+    public required string CodigoSistema { get; init; }
+    public required string Cuis { get; init; }
+    public required Ambiente Ambiente { get; init; }
+    public int CodigoSucursal { get; init; } = 0;
+}
+
 public sealed record HomologacionRequest
 {
     public required long Nit { get; init; }

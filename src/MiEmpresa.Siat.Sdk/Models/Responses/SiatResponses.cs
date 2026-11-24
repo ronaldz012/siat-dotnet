@@ -141,6 +141,23 @@ public sealed record FechaHoraResponse
     public required DateTime FechaHora { get; init; }
 }
 
+/// <summary>Punto de venta registrado en el SIN.</summary>
+public sealed record PuntoVentaSiat
+{
+    public required int CodigoPuntoVenta { get; init; }
+    public required string NombrePuntoVenta { get; init; }
+    public required string TipoPuntoVenta { get; init; }
+}
+
+/// <summary>Resultado de consultar los puntos de venta de una sucursal.</summary>
+public sealed record ConsultaPuntosVentaResponse
+{
+    public required bool Transaccion { get; init; }
+    public required IReadOnlyList<PuntoVentaSiat> PuntosVenta { get; init; }
+    public required IReadOnlyList<SiatMensaje> Mensajes { get; init; }
+    public bool Exitoso => Transaccion && Mensajes.All(m => !m.EsError);
+}
+
 public sealed record HomologacionResponse
 {
     public required bool Transaccion { get; init; }

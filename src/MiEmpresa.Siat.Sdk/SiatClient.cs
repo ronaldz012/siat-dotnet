@@ -19,6 +19,7 @@ public interface ISiatSdk
     Task<CatalogoResponse<LeyendaFacturaSiat>> SincronizarLeyendasFacturaAsync(ParametricaRequest request, string token, CancellationToken ct);
     Task<CatalogoResponse<ActividadDocumentoSectorSiat>> SincronizarActividadesDocumentoSectorAsync(ParametricaRequest request, string token, CancellationToken ct);
     Task<FechaHoraResponse> ObtenerFechaHoraAsync(ParametricaRequest request, string token, CancellationToken ct);
+    Task<ConsultaPuntosVentaResponse> ConsultarPuntosVentaAsync(PuntosVentaRequest request, string token, CancellationToken ct);
 }
 
 public sealed class SiatClient : ISiatSdk
@@ -31,6 +32,7 @@ public sealed class SiatClient : ISiatSdk
     private readonly SincronizarParametricaOperation _sincronizarParametrica;
     private readonly SincronizarCatalogosEspecialesOperation _sincronizarEspeciales;
     private readonly ObtenerFechaHoraOperation _obtenerFechaHora;
+    private readonly ConsultaPuntosVentaOperation _consultaPuntosVenta;
 
     public SiatClient(
         ObtenerCuisOperation obtenerCuis,
@@ -40,7 +42,8 @@ public sealed class SiatClient : ISiatSdk
         RegistrarEventoOperation registrarEvento,
         SincronizarParametricaOperation sincronizarParametrica,
         SincronizarCatalogosEspecialesOperation sincronizarEspeciales,
-        ObtenerFechaHoraOperation obtenerFechaHora)
+        ObtenerFechaHoraOperation obtenerFechaHora,
+        ConsultaPuntosVentaOperation consultaPuntosVenta)
     {
         _obtenerCuis = obtenerCuis;
         _obtenerCufd = obtenerCufd;
@@ -50,6 +53,7 @@ public sealed class SiatClient : ISiatSdk
         _sincronizarParametrica = sincronizarParametrica;
         _sincronizarEspeciales = sincronizarEspeciales;
         _obtenerFechaHora = obtenerFechaHora;
+        _consultaPuntosVenta = consultaPuntosVenta;
     }
 
     public async Task<CuisResponse> ObtenerCuisAsync(CuisRequest request, string token, CancellationToken ct)
@@ -90,4 +94,8 @@ public sealed class SiatClient : ISiatSdk
     public async Task<FechaHoraResponse> ObtenerFechaHoraAsync(
         ParametricaRequest request, string token, CancellationToken ct)
         => await _obtenerFechaHora.EjecutarAsync(request, token, ct);
+
+    public async Task<ConsultaPuntosVentaResponse> ConsultarPuntosVentaAsync(
+        PuntosVentaRequest request, string token, CancellationToken ct)
+        => await _consultaPuntosVenta.EjecutarAsync(request, token, ct);
 }
